@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="PuzzleFiles\puzzle1.txt" />
+    <None Remove="PuzzleFiles\puzzle2.txt" />
+    <None Remove="PuzzleFiles\puzzle3.txt" />
+    <None Remove="PuzzleFiles\puzzle4.txt" />
+    <None Remove="PuzzleFiles\puzzle5.txt" />
+    <None Remove="PuzzleFiles\puzzle6.txt" />
+    <None Remove="PuzzleFiles\puzzle7.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="PuzzleFiles\puzzle7.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PuzzleFiles\puzzle1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PuzzleFiles\puzzle2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PuzzleFiles\puzzle3.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PuzzleFiles\puzzle4.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PuzzleFiles\puzzle6.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PuzzleFiles\puzzle5.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
