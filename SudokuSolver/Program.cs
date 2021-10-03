@@ -6,31 +6,64 @@ namespace SudokuSolver
     {
         static void Main(string[] args)
         {
-            IMessageProvider messageService = new ConsoleMessageProvider();
-            IPuzzleReader puzzleReader = new TxtPuzzleFile();
-            IPuzzleWriter textWriter = new PuzzleTextWriter();
+            var messageService = SetupMessageService();
+            var puzzleFilePath = SelectPuzzle(messageService);
+            var puzzle = SetupPuzzle(puzzleFilePath);
+            PrintPuzzleToConsole(puzzle, messageService);
+            SolvePuzzle(puzzle, messageService, puzzleFilePath);  
+        }
+
+        static string SelectPuzzle(IMessageProvider messageService)
+        {
             PuzzleSelector selector = new PuzzleSelector(messageService);
             var puzzleFilePath = selector.SelectPuzzle();
-            var solutionFilePath = "../../../PuzzleSolutions/" + puzzleFilePath.Substring(14, 7) + ".sln.txt";
+            return puzzleFilePath;
+        }
+
+        static IMessageProvider SetupMessageService()
+        {
+            IMessageProvider messageService = new ConsoleMessageProvider();
+            return messageService;
+        }
+
+        static SudokuPuzzle SetupPuzzle(string puzzleFilePath)
+        {
+            IPuzzleReader puzzleReader = new TxtPuzzleFile();
             SudokuPuzzle puzzle = new SudokuPuzzle(puzzleFilePath, puzzleReader);
-            BacktrackSolver solver = new BacktrackSolver();
+            return puzzle;
+        }
+
+        static void PrintSolutionToFile(SudokuPuzzle puzzle, string puzzleFilePath)
+        {
+            IPuzzleWriter textWriter = new PuzzleTextWriter();
+            var solutionFilePath = "../../../PuzzleSolutions/" + puzzleFilePath.Substring(14, 7) + ".sln.txt";
+            textWriter.WritePuzzle(puzzle, solutionFilePath);
+        }
+
+        static void PrintPuzzleToConsole(SudokuPuzzle puzzle, IMessageProvider messageService)
+        {
             messageService.printPuzzle(puzzle);
-            Console.WriteLine("___________________");
-            Console.WriteLine(" ");
+            messageService.PrintPuzzleGap();
+        }
+
+        static void SolvePuzzle(SudokuPuzzle puzzle, IMessageProvider messageService, string puzzleFilePath)
+        {
+            BacktrackSolver solver = new BacktrackSolver();
+
             if (solver.Solve(puzzle))
             {
                 messageService.printPuzzle(puzzle);
 
                 messageService.printExitMessage();
-                textWriter.WritePuzzle(puzzle, solutionFilePath);
+                PrintSolutionToFile(puzzle, puzzleFilePath);
+
                 Console.ReadLine();
             }
             else
             {
-                Console.WriteLine("Puzzle unsolvable. Please check the puzzle for accuracy.");
+                messageService.printUnsolveable();
                 Console.ReadLine();
             }
-            
         }
     }
 }

@@ -13,14 +13,15 @@ namespace SudokuSolver
 
         public void printPuzzle(SudokuPuzzle puzzle)
         {
-            for (int i = 0; i < puzzle.cells.GetLength(0); i++)
+            var cells = puzzle.getCells();
+            for (int i = 0; i < cells.GetLength(0); i++)
             {
                 if (i % 3 == 0 && i !=0)
                 {
                     Console.WriteLine("----------------------");
                 }
 
-                for (int j = 0; j < puzzle.cells.GetLength(1); j++)
+                for (int j = 0; j < cells.GetLength(1); j++)
                 {
                     if (j %3 == 0 && j != 0)
                     {
@@ -29,11 +30,11 @@ namespace SudokuSolver
 
                     if (j == 8)
                     {
-                        Console.WriteLine(puzzle.cells[i,j] + " ");
+                        Console.WriteLine(cells[i,j] + " ");
                     }
                     else
                     {
-                        Console.Write(puzzle.cells[i, j] + " ");
+                        Console.Write(cells[i, j] + " ");
                     }
                 }
             }
@@ -62,6 +63,20 @@ namespace SudokuSolver
         public void printWelcomeMessage()
         {
             Console.WriteLine("Welcome to Sudoku BacktrackSolver.");
+        }
+
+        public void PrintPuzzleGap()
+        {
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+            Console.WriteLine("___________________");
+            Console.WriteLine(" ");
+            Console.WriteLine(" ");
+        }
+
+        public void printUnsolveable()
+        {
+            Console.WriteLine("Puzzle unsolvable. Please check the puzzle for accuracy.");
         }
     }
 }

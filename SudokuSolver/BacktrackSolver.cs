@@ -9,6 +9,7 @@ namespace SudokuSolver
 
         public bool Solve(SudokuPuzzle puzzle)
         {
+            var cells = puzzle.getCells();
             var blankCell = FindBlankCell(puzzle);
             if (blankCell == null)
             {
@@ -23,7 +24,7 @@ namespace SudokuSolver
                 if (IsValidNumber(puzzle, i, blankCell))
                 {
  
-                    puzzle.cells[row, col] = char.Parse(i.ToString());
+                    cells[row, col] = char.Parse(i.ToString());
 
                     //backtrack with recursion
                     if (Solve(puzzle))
@@ -31,7 +32,7 @@ namespace SudokuSolver
                         return true;
                     }
 
-                    puzzle.cells[row, col] = char.Parse("X");
+                    cells[row, col] = char.Parse("X");
                 }
             }
             return false;
@@ -39,11 +40,12 @@ namespace SudokuSolver
 
         public int[] FindBlankCell(SudokuPuzzle puzzle)
         {
-            for (int i = 0; i < puzzle.cells.GetLength(0); i++)
+            var cells = puzzle.getCells();
+            for (int i = 0; i < cells.GetLength(0); i++)
             {
-                for (int j = 0; j < puzzle.cells.GetLength(1); j++)
+                for (int j = 0; j < cells.GetLength(1); j++)
                 {
-                    if (puzzle.cells[i,j].ToString() == "X")
+                    if (cells[i,j].ToString() == "X")
                     {
                         var pos = new int[] { i, j }; //row,column
                         return pos;
@@ -55,22 +57,23 @@ namespace SudokuSolver
 
         public bool IsValidNumber(SudokuPuzzle puzzle, int number, int[] position)
         {
+            var cells = puzzle.getCells();
             var row = position[0];
             var col = position[1];
             var startingRow = (row / 3) * 3;
             var startingCol = (col / 3) * 3;
 
-            for (int i = 0; i < puzzle.cells.GetLength(0); ++i)
+            for (int i = 0; i < cells.GetLength(0); ++i)
             {
-                if (puzzle.cells[row, i].ToString() == number.ToString())
+                if (cells[row, i].ToString() == number.ToString())
                 {
                     return false;
                 }
-                if (puzzle.cells[i, col].ToString() == number.ToString())
+                if (cells[i, col].ToString() == number.ToString())
                 {
                     return false;
                 }
-                if (puzzle.cells[startingRow + (i % 3), startingCol + (i / 3)].ToString() == number.ToString())
+                if (cells[startingRow + (i % 3), startingCol + (i / 3)].ToString() == number.ToString())
                 {
                     return false;
                 }

@@ -11,19 +11,20 @@ namespace SudokuSolver
         {
             using (StreamWriter sw = File.CreateText(filePath))
             {
-                for (int i = 0; i < puzzle.cells.GetLength(0); i++)
+                var cells = puzzle.getCells();
+                for (int i = 0; i < cells.GetLength(0); i++)
                 {
 
-                    for (int j = 0; j < puzzle.cells.GetLength(1); j++)
+                    for (int j = 0; j < cells.GetLength(1); j++)
                     {
 
                         if (j == 8)
                         {
-                            sw.WriteLineAsync(puzzle.cells[i, j] + " ");
+                            sw.WriteLineAsync(cells[i, j] + " ");
                         }
                         else
                         {
-                            sw.WriteAsync(puzzle.cells[i, j] + " ");
+                            sw.WriteAsync(cells[i, j] + " ");
                         }
                     }
                 }

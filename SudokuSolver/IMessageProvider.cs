@@ -15,6 +15,9 @@ namespace SudokuSolver
         void printSelectionAlphaError();
         void printSelectionGreater();
         void printSelectionLess();
+        void PrintPuzzleGap();
+
+        void printUnsolveable();
 
     }
 }
