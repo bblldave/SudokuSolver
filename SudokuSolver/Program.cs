@@ -8,8 +8,10 @@ namespace SudokuSolver
         {
             IMessageProvider messageService = new ConsoleMessageProvider();
             IPuzzleReader puzzleReader = new TxtPuzzleFile();
+            IPuzzleWriter textWriter = new PuzzleTextWriter();
             PuzzleSelector selector = new PuzzleSelector(messageService);
             var puzzleFilePath = selector.SelectPuzzle();
+            var solutionFilePath = "../../../PuzzleSolutions/" + puzzleFilePath.Substring(14, 7) + ".sln.txt";
             SudokuPuzzle puzzle = new SudokuPuzzle(puzzleFilePath, puzzleReader);
             BacktrackSolver solver = new BacktrackSolver();
             messageService.printPuzzle(puzzle);
@@ -18,7 +20,9 @@ namespace SudokuSolver
             if (solver.Solve(puzzle))
             {
                 messageService.printPuzzle(puzzle);
+
                 messageService.printExitMessage();
+                textWriter.WritePuzzle(puzzle, solutionFilePath);
             }
             else
             {
