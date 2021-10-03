@@ -23,10 +23,12 @@ namespace SudokuSolver
 
                 messageService.printExitMessage();
                 textWriter.WritePuzzle(puzzle, solutionFilePath);
+                Console.ReadLine();
             }
             else
             {
                 Console.WriteLine("Puzzle unsolvable. Please check the puzzle for accuracy.");
+                Console.ReadLine();
             }
             
         }
